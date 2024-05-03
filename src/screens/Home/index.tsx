@@ -1,11 +1,14 @@
 import { Header } from "@/components/Header";
-import { Container, Title } from "./styles";
+import { Publications } from "./Publications";
+import { Container, Content, Title } from "./styles";
 export function Home() {
   return (
     <Container>
       <Header />
-
-      <Title>title</Title>
+      <Content>
+        <Title>Home </Title>
+        <Publications></Publications>
+      </Content>
     </Container>
   );
 }
