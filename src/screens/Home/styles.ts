@@ -5,8 +5,5 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.background};
 `;
 export const Content = styled.ScrollView`
-  padding: 0 16px;
-`;
-export const Title = styled.Text`
-  font-family: ${({ theme }) => theme.font.regular};
+  padding: 16px;
 `;

@@ -1,6 +1,6 @@
 import Logo from "@/assets/LOGO.svg";
 import { Bell, UserPlus } from "phosphor-react-native";
-import { useTheme } from "styled-components";
+import { useTheme } from "styled-components/native";
 import * as S from "./styles";
 export function Header() {
   const theme = useTheme();
@@ -9,8 +9,8 @@ export function Header() {
       <S.Content>
         <Logo />
         <S.Icons>
-          <UserPlus weight="fill" size={32} />
-          <Bell weight="fill" size={32} />
+          <UserPlus weight="fill" size={32} color={theme.colors.secondary} />
+          <Bell weight="fill" size={32} color={theme.colors.secondary} />
         </S.Icons>
       </S.Content>
     </S.Container>
