@@ -3,7 +3,6 @@ import { PublicationDescription } from "./PublicationDescription";
 import { PublicationHeader } from "./PublicationHeader";
 import { PublicationImage } from "./PublicationImage";
 import { PublicationRoot } from "./PublicationRoot";
-interface Props {}
 
 export const Publication = {
   Root: PublicationRoot,
