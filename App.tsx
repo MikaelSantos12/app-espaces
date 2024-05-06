@@ -1,11 +1,14 @@
 import { Routes } from "@/routes";
 import { Inter_400Regular } from "@expo-google-fonts/inter";
 import { Nunito_400Regular, Nunito_700Bold } from "@expo-google-fonts/nunito";
+import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import theme from "./src/theme";
+dayjs.locale("pt-br");
 
 export default function App() {
   const [fontsLoaded] = useFonts({

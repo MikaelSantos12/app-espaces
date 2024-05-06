@@ -7,9 +7,9 @@ export default {
     text: "#000000",
   },
   font: {
-    regular: "Inter_400Regular",
-    title: "Nunito_700Bold",
-    subtitle: "Nunito_400Regular",
+    inter_400: "Inter_400Regular",
+    nunito_700: "Nunito_700Bold",
+    nunito_400: "Nunito_400Regular",
   },
   font_size: {
     sm: "14px",

@@ -34,30 +34,13 @@ export const Rating = styled.View`
   align-items: center;
 `;
 export const Highlight = styled.Text`
-  font-family: ${({ theme }) => theme.font.title};
+  font-family: ${({ theme }) => theme.font.nunito_700};
   font-size: ${({ theme }) => theme.font_size.md};
   color: ${({ theme }) => theme.colors.main};
 `;
 
 export const Title = styled.Text`
-  font-family: ${({ theme }) => theme.font.subtitle};
+  font-family: ${({ theme }) => theme.font.nunito_400};
   font-size: ${({ theme }) => theme.font_size.md};
   color: ${({ theme }) => theme.colors.main};
-`;
-
-export const PostImage = styled.Image`
-  width: 100%;
-  height: 244px;
-`;
-
-export const ActionsContainer = styled.View`
-  margin: 8px 0px;
-  flex-direction: row;
-  gap: 18px;
-`;
-
-export const Descripton = styled.Text`
-  font-family: ${({ theme }) => theme.font.regular};
-  font-size: ${({ theme }) => theme.font_size.md};
-  color: ${({ theme }) => theme.colors.text};
 `;

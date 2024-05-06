@@ -23,7 +23,7 @@ export const RatingsContainer = styled.View`
   gap: 2px;
 `;
 export const Title = styled.Text`
-  font-family: ${({ theme }) => theme.font.subtitle};
+  font-family: ${({ theme }) => theme.font.nunito_400};
   font-size: ${({ theme }) => theme.font_size.md};
   color: ${({ theme }) => theme.colors.main};
 `;
@@ -41,7 +41,7 @@ export const RatingCircle = styled.View`
 `;
 
 export const RatingText = styled.Text`
-  font-family: ${({ theme }) => theme.font.title};
+  font-family: ${({ theme }) => theme.font.nunito_700};
   font-size: ${({ theme }) => theme.font_size.md};
   color: ${({ theme }) => theme.colors.text};
   text-align: center;

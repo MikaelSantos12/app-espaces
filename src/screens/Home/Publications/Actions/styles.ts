@@ -8,7 +8,7 @@ export const Container = styled.View`
 `;
 
 export const Count = styled.Text`
-  font-family: ${({ theme }) => theme.font.subtitle};
+  font-family: ${({ theme }) => theme.font.nunito_400};
   font-size: ${({ theme }) => theme.font_size.md};
   color: ${({ theme }) => theme.colors.text};
 `;

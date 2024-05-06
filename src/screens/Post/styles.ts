@@ -6,5 +6,5 @@ export const Container = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-family: ${({ theme }) => theme.font.regular};
+  font-family: ${({ theme }) => theme.font.inter_400};
 `;

@@ -15,6 +15,7 @@
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.17",
     "@testing-library/react-native": "^12.5.0",
+    "dayjs": "^1.11.11",
     "expo": "~50.0.17",
     "expo-font": "~11.10.3",
     "expo-status-bar": "~1.11.1",
@@ -23,11 +24,13 @@
     "jest-transformer-svg": "^2.0.2",
     "phosphor-react-native": "^2.0.0",
     "react": "18.2.0",
+    "react-hook-form": "^7.51.4",
     "react-native": "0.73.6",
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
     "react-native-svg": "14.1.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "zod": "^3.23.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
