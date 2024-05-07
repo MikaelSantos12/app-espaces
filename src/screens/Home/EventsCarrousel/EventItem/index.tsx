@@ -3,15 +3,20 @@ import { useTheme } from "styled-components";
 import { Container, Title } from "./styles";
 interface Props {
   isFirst?: boolean;
+  data: any;
 }
 
-export function EventItem({ isFirst }: Props) {
+export function EventItem({ data, isFirst }: Props) {
   const theme = useTheme();
   return (
-    <Container isFirst={isFirst}>
+    <Container
+      isFirst={isFirst}
+      source={!isFirst ? { uri: data.photo } : {}}
+      imageStyle={{ borderRadius: 8 }}
+    >
       {isFirst && <Sparkle color={theme.colors.secondary} />}
 
-      <Title>Próximos eventos</Title>
+      <Title>{data.title}</Title>
     </Container>
   );
 }

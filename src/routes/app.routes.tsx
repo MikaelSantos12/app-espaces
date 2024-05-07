@@ -1,5 +1,5 @@
 import { Home } from "@/screens/Home";
-import { List } from "@/screens/List";
+import { Lists } from "@/screens/List";
 import { Map } from "@/screens/Map";
 import { Post } from "@/screens/Post";
 import { Profile } from "@/screens/Profile";
@@ -18,7 +18,7 @@ import { Platform } from "react-native";
 import { useTheme } from "styled-components";
 
 type AppRoutes = {
-  home: undefined;
+  feed: undefined;
 
   list: undefined;
   post: undefined;
@@ -29,7 +29,7 @@ type AppRoutes = {
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
 
 const { Navigator, Screen } = createBottomTabNavigator<AppRoutes>();
-export function AppRoutes() {
+export function TabStack() {
   const theme = useTheme();
   return (
     <Navigator
@@ -48,7 +48,7 @@ export function AppRoutes() {
       }}
     >
       <Screen
-        name="home"
+        name="feed"
         component={Home}
         options={{
           tabBarIcon: ({ color, focused }) => (
@@ -62,7 +62,7 @@ export function AppRoutes() {
       />
       <Screen
         name="list"
-        component={List}
+        component={Lists}
         options={{
           tabBarIcon: ({ color, focused }) => (
             <Bookmarks

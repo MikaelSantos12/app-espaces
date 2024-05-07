@@ -1,8 +1,10 @@
 import { Button } from "@/components/Button";
+import { useNavigation } from "@react-navigation/native";
 import * as S from "./styles";
 export function CardList({ data }) {
+  const navigation = useNavigation();
   return (
-    <S.Container>
+    <S.Container onPress={() => navigation.navigate("listDetails" as never)}>
       <S.Top>
         <S.CoverPhoto source={{ uri: data.coverPhoto }} />
         <S.ProfilePic source={{ uri: data.profilePic }} />

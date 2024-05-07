@@ -1,14 +1,20 @@
 import { Header } from "@/components/Header";
 import { Input } from "@/components/Input";
 import { faker } from "@faker-js/faker";
-import { MagnifyingGlass } from "phosphor-react-native";
+import { FadersHorizontal, MagnifyingGlass } from "phosphor-react-native";
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { FlatList } from "react-native";
 import { useTheme } from "styled-components/native";
 import { CardList } from "./CardList";
-import { Container, Content } from "./styles";
-export function List() {
+import {
+  ButtonFilter,
+  Container,
+  Content,
+  SearchContainer,
+  Title,
+} from "./styles";
+export function Lists() {
   const theme = useTheme();
   const { control, watch } = useForm();
   const q = watch("search");
@@ -44,12 +50,19 @@ export function List() {
       <Header />
 
       <Content>
-        <Input
-          control={control}
-          name="search"
-          placeholder="Busque por um tema"
-          Icon={<MagnifyingGlass color={theme.colors.main} weight="bold" />}
-        />
+        <SearchContainer>
+          <Input
+            control={control}
+            name="search"
+            placeholder="Busque por um tema"
+            Icon={<MagnifyingGlass color={theme.colors.main} weight="bold" />}
+          />
+          <ButtonFilter>
+            <Title>Filtrar</Title>
+            <FadersHorizontal color={theme.colors.main} />
+          </ButtonFilter>
+        </SearchContainer>
+
         <FlatList
           scrollEnabled={false}
           data={lists}

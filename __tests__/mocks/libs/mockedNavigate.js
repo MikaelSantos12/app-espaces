@@ -6,6 +6,7 @@ jest.mock("@react-navigation/native", () => {
     ...actualNav,
     useNavigation: () => ({
       navigate: mockedNavigate,
+      getState: jest.fn().mockReturnValue({ type: "tab" }),
     }),
   };
 });

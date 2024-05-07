@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 export const InputWrapper = styled.View`
   position: relative;
   justify-content: center;
+  flex: 1;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.card};
   border-radius: 8px;

@@ -5,14 +5,20 @@ export const Container = styled.SafeAreaView`
   width: 100%;
 `;
 
-export const Content = styled.View`
+export const Content = styled.View<{ isTab?: boolean }>`
   flex-direction: row;
   padding: 16px;
   padding-top: 32px;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: ${({ isTab }) => (isTab ? "space-between" : "")};
+  gap: 8px;
 `;
 
-export const Title = styled.Text``;
+export const Title = styled.Text`
+  color: ${({ theme }) => theme.colors.secondary};
+  font-family: ${({ theme }) => theme.font.nunito_700};
+  font-size: ${({ theme }) => theme.font_size.xl};
+`;
 
 export const Icons = styled.View`
   flex-direction: row;
