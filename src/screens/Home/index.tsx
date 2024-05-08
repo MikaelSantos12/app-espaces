@@ -4,7 +4,8 @@ import { faker } from "@faker-js/faker";
 import { useCallback } from "react";
 import { FlatList } from "react-native";
 import { EventsCarrousel } from "./EventsCarrousel";
-import { Publication } from "./Publications";
+
+import { Publication } from "@/components/Publications";
 import { Container, Content } from "./styles";
 export function Home() {
   const publication = [

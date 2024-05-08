@@ -2,7 +2,7 @@ export default {
   colors: {
     main: "#020422",
     background: "#FFF",
-    card: "#D9D9D9",
+    card: "#EBEBEB     ",
     secondary: "#D7DBFF",
     text: "#000000",
   },
@@ -12,7 +12,7 @@ export default {
     nunito_400: "Nunito_400Regular",
   },
   font_size: {
-    sm: "14px",
+    sm: "12px",
     md: "16px",
     lg: "18px",
     xl: "24px",

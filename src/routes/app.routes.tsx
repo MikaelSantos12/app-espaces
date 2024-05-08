@@ -1,7 +1,8 @@
+import { CompanySelection } from "@/screens/CompanySelection";
+
 import { Home } from "@/screens/Home";
 import { Lists } from "@/screens/List";
 import { Map } from "@/screens/Map";
-import { Post } from "@/screens/Post";
 import { Profile } from "@/screens/Profile";
 import {
   BottomTabNavigationProp,
@@ -21,7 +22,7 @@ type AppRoutes = {
   feed: undefined;
 
   list: undefined;
-  post: undefined;
+  companySelection: undefined;
   map: undefined;
   profile: undefined;
 };
@@ -75,8 +76,8 @@ export function TabStack() {
       />
 
       <Screen
-        name="post"
-        component={Post}
+        name="companySelection"
+        component={CompanySelection}
         options={{
           tabBarIcon: ({ color, focused }) => (
             <PlusSquare

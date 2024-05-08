@@ -8,14 +8,13 @@ export const InputWrapper = styled.View`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.card};
   border-radius: 8px;
+  height: 48px;
+  border: 1px solid #ccc;
 `;
 
 export const StyledInput = styled(TextInput)`
-  padding: 10px 40px 10px 40px; /* Ajuste o padding conforme necessário */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
   width: 100%;
+  padding: 12px 40px 12px 40px;
 `;
 
 export const IconWrapper = styled.View`

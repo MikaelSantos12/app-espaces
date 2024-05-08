@@ -2,7 +2,7 @@ import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
 const sizes = {
-  sm: "8px 8px",
+  sm: "8px 12px",
   lg: "8px 32px",
   full: "8px 8px",
 };
@@ -12,7 +12,7 @@ export const Container = styled(TouchableOpacity)<{
   background-color: ${({ theme }) => theme.colors.main};
   border-radius: 99px;
 
-  padding: ${({ size }) => (size ? sizes.lg : "8px")};
+  padding: ${({ size }) => (size ? sizes[size] : "8px")};
   flex: ${({ size }) => (size === "full" ? 1 : "none")};
 
   align-self: ${({ size }) => (size === "sm" ? "center" : "auto")};

@@ -6,7 +6,8 @@ import { Compass } from "phosphor-react-native";
 import { useCallback } from "react";
 import { FlatList } from "react-native";
 import { useTheme } from "styled-components/native";
-import { Publication } from "../Home/Publications";
+
+import { Publication } from "@/components/Publications";
 import {
   Container,
   Content,
