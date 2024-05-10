@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 export const Container = styled.TouchableOpacity`
   flex: 1;
   border-radius: 8px;
-  padding: 8px;
+  padding: 12px;
   flex-direction: row;
   background-color: ${({ theme }) => theme.colors.card};
 
@@ -11,12 +11,14 @@ export const Container = styled.TouchableOpacity`
 `;
 
 export const CompanyImage = styled.Image`
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 4px;
 `;
 
-export const TextWrapper = styled.View``;
+export const TextWrapper = styled.View`
+  flex: 1;
+`;
 
 export const Title = styled.Text`
   font-size: ${({ theme }) => theme.font_size.lg};
