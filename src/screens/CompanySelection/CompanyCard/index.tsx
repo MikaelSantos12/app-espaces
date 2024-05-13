@@ -12,11 +12,12 @@ interface Props {
     company: string;
     location: string;
   };
+  handlePress?: () => void;
 }
 
-export function CompanyCard({ data }: Props) {
+export function CompanyCard({ data, handlePress }: Props) {
   return (
-    <Container>
+    <Container onPress={handlePress}>
       <CompanyImage source={{ uri: data.image }} />
       <TextWrapper>
         <Title>{data.company}</Title>

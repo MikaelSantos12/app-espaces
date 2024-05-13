@@ -6,8 +6,10 @@ import { FlatList } from "react-native";
 import { EventsCarrousel } from "./EventsCarrousel";
 
 import { Publication } from "@/components/Publications";
+import { useNavigation } from "@react-navigation/native";
 import { Container, Content } from "./styles";
 export function Home() {
+  const navigation = useNavigation();
   const publication = [
     {
       id: faker.string.uuid(),
@@ -33,7 +35,10 @@ export function Home() {
   const renderItem = useCallback(
     ({ item }) => (
       <Publication.Root>
-        <Publication.Header data={item} />
+        <Publication.Header
+          data={item}
+          onPress={() => navigation.navigate("publications" as never)}
+        />
         <Publication.Image data={item} />
         <Publication.Actions />
         <Publication.Description data={item} />

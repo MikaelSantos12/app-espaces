@@ -14,8 +14,10 @@ export const Container = styled(TouchableOpacity)<{
 
   padding: ${({ size }) => (size ? sizes[size] : "8px")};
   flex: ${({ size }) => (size === "full" ? 1 : "none")};
-
+  height: ${({ size }) => (size === "full" ? "60px" : "auto")};
   align-self: ${({ size }) => (size === "sm" ? "center" : "auto")};
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Title = styled.Text`

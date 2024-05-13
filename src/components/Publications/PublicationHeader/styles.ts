@@ -4,7 +4,7 @@ export const Container = styled.View`
   flex: 1;
 `;
 
-export const Header = styled.View`
+export const Header = styled.TouchableOpacity`
   flex-direction: row;
 `;
 export const PhotoContainer = styled.View`

@@ -8,11 +8,12 @@ interface Props {
     companyName: string;
     createdAt: string;
   };
+  onPress?: () => void;
 }
-export function PublicationHeader({ data }: Props) {
+export function PublicationHeader({ data, onPress }: Props) {
   return (
     <>
-      <S.Header>
+      <S.Header activeOpacity={1} onPress={onPress}>
         <S.PhotoContainer>
           <S.CompanyPhoto
             source={{
