@@ -17,7 +17,7 @@ export const Content = styled.View<{ isTab?: boolean }>`
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.secondary};
   font-family: ${({ theme }) => theme.font.nunito_700};
-  font-size: ${({ theme }) => theme.font_size.xl};
+  font-size: ${({ theme }) => theme.font_size.lg};
 `;
 
 export const Icons = styled.View`

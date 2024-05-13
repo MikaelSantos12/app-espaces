@@ -125,7 +125,11 @@ export function NewPublication() {
           <Title>Escolha uma foto</Title>
           <PhotosWrapper horizontal contentContainerStyle={{ gap: 8 }}>
             {images.map((item, index) => (
-              <Photos handlePress={() => handlePress(index)} url={item} />
+              <Photos
+                handlePress={() => handlePress(index)}
+                url={item}
+                key={index}
+              />
             ))}
           </PhotosWrapper>
 

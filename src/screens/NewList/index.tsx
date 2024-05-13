@@ -1,10 +1,19 @@
+import { Button } from "@/components/Button";
 import { Header } from "@/components/Header";
 import { Input } from "@/components/Input";
 import { faker } from "@faker-js/faker";
-import { MagnifyingGlass, PencilSimpleLine } from "phosphor-react-native";
-import { useState } from "react";
+import {
+  MagnifyingGlass,
+  PencilSimpleLine,
+  Trash,
+} from "phosphor-react-native";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { FlatList, Switch } from "react-native";
+import { Switch, TouchableOpacity } from "react-native";
+import DraggableFlatList, {
+  RenderItemParams,
+} from "react-native-draggable-flatlist";
+import { Swipeable } from "react-native-gesture-handler";
 import { useTheme } from "styled-components/native";
 import { CardCompany } from "./CardCompany";
 import {
@@ -13,35 +22,72 @@ import {
   ListInfo,
   Row,
   SearchContainer,
+  SwipeableRemove,
   Title,
 } from "./styles";
+
+type Company = {
+  id: string;
+  photo: string;
+  name: string;
+};
+const companies = [
+  {
+    id: faker.string.uuid(),
+    photo: faker.image.avatarGitHub(),
+    name: faker.person.fullName(),
+  },
+
+  {
+    id: faker.string.uuid(),
+    photo: faker.image.avatarGitHub(),
+    name: faker.person.fullName(),
+  },
+
+  {
+    id: faker.string.uuid(),
+    photo: faker.image.avatarGitHub(),
+    name: faker.person.fullName(),
+  },
+];
 export function NewList() {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-
+  const [data, setData] = useState(companies);
   const { control } = useForm();
   const theme = useTheme();
 
-  const data = [
-    {
-      id: faker.string.uuid(),
-      photo: faker.image.avatarGitHub(),
-      name: faker.person.fullName(),
-    },
+  const renderRightActions = useCallback(
+    (item: Company) => (
+      <SwipeableRemove>
+        <TouchableOpacity onPress={() => removeItem(item)}>
+          <Trash color={theme.colors.background} />
+        </TouchableOpacity>
+      </SwipeableRemove>
+    ),
+    [theme.colors.background]
+  );
 
-    {
-      id: faker.string.uuid(),
-      photo: faker.image.avatarGitHub(),
-      name: faker.person.fullName(),
+  const removeItem = useCallback(
+    (item: Company) => {
+      setData((prevState) => prevState.filter((el) => el.id !== item.id));
     },
+    [data]
+  );
 
-    {
-      id: faker.string.uuid(),
-      photo: faker.image.avatarGitHub(),
-      name: faker.person.fullName(),
-    },
-  ];
-  const renderItem = ({ item }: any) => <CardCompany data={item} />;
+  const renderItem = useCallback(
+    ({ item, drag }: RenderItemParams<Company>) => (
+      <Swipeable
+        renderRightActions={() => renderRightActions(item)}
+        friction={1}
+        rightThreshold={40}
+        overshootRight={false}
+      >
+        <CardCompany data={item} drag={drag} />
+      </Swipeable>
+    ),
+    [renderRightActions]
+  );
   return (
     <Container>
       <Header title="Nova lista" />
@@ -75,15 +121,18 @@ export function NewList() {
           />
         </SearchContainer>
 
-        <FlatList
+        <DraggableFlatList
           scrollEnabled={false}
           data={data}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
+          onDragEnd={({ data }) => setData(data)}
           contentContainerStyle={{
             gap: 8,
+            marginBottom: 24,
           }}
         />
+        <Button title="Publicar" size="full" />
       </Content>
     </Container>
   );

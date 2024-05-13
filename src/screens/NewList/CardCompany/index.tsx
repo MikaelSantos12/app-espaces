@@ -1,5 +1,7 @@
 import { List, PencilSimpleLine, X } from "phosphor-react-native";
+import React from "react";
 import { useTheme } from "styled-components/native";
+
 import {
   Action,
   Actions,
@@ -8,16 +10,19 @@ import {
   Info,
   Title,
 } from "./styles";
-7;
+
 interface Props {
   data: {
     photo: string;
     name: string;
   };
+
+  drag?: () => void; // Optional
 }
 
-export function CardCompany({ data }: Props) {
+export function CardCompany({ data, drag }: Props) {
   const theme = useTheme();
+
   return (
     <Container>
       <Info>
@@ -26,13 +31,14 @@ export function CardCompany({ data }: Props) {
       </Info>
       <Actions>
         <Action>
-          <PencilSimpleLine color={"#4F4F4F"} weight="fill" size={18} />
+          <PencilSimpleLine color={theme.colors.text} weight="fill" size={18} />
         </Action>
         <Action>
-          <X color={"#4F4F4F"} size={18} />
+          <X color={theme.colors.text} size={18} />
         </Action>
-        <Action>
-          <List color={"#4F4F4F"} weight="fill" size={18} />
+
+        <Action onLongPress={drag}>
+          <List color={theme.colors.text} weight="fill" size={18} />
         </Action>
       </Actions>
     </Container>

@@ -1,6 +1,7 @@
 import { ListDetails } from "@/screens/ListDetails";
 import { NewList } from "@/screens/NewList";
 import { NewPublication } from "@/screens/NewPublication";
+import { Publication } from "@/screens/Publication";
 import { createStackNavigator } from "@react-navigation/stack";
 import { TabStack } from "./app.routes";
 
@@ -9,6 +10,7 @@ type StackRoutes = {
   listDetails: undefined;
   newPublication: undefined;
   newList: undefined;
+  publications: undefined;
 };
 
 // Crie o navegador de stack
@@ -22,6 +24,7 @@ export function AppRoutes() {
       <Stack.Screen name="listDetails" component={ListDetails} />
       <Stack.Screen name="newPublication" component={NewPublication} />
       <Stack.Screen name="newList" component={NewList} />
+      <Stack.Screen name="publications" component={Publication} />
     </Stack.Navigator>
   );
 }

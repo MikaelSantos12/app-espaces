@@ -30,5 +30,13 @@ export const SearchContainer = styled.View`
   margin-top: 32px;
   margin-bottom: 32px;
   gap: 32px;
-  width: 100%;
+  flex: 1;
+`;
+
+export const SwipeableRemove = styled.View`
+  background-color: ${({ theme }) => theme.colors.danger};
+  border-radius: 8px;
+  width: 70px;
+  justify-content: center;
+  align-items: center;
 `;

@@ -12,6 +12,7 @@ export const InputWrapper = styled.View<Props>`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.card};
   border-radius: 8px;
+  padding-left: 18px;
   height: ${({ isTextArea }) => (isTextArea ? "128px" : "48px")};
 `;
 

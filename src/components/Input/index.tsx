@@ -23,7 +23,8 @@ export function Input({
       name={name}
       render={({ field: { onChange, value } }) => (
         <S.InputWrapper style={style} isTextArea={isTextArea}>
-          <S.IconWrapper>{Icon && Icon}</S.IconWrapper>
+          {Icon && <S.IconWrapper>{Icon}</S.IconWrapper>}
+
           <S.StyledInput
             value={value}
             onChangeText={onChange}
