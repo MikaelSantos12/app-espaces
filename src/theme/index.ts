@@ -5,6 +5,7 @@ export default {
     card: "#EBEBEB     ",
     secondary: "#D7DBFF",
     text: "#000000",
+    buttons: '#D9D9D9'
   },
   font: {
     inter_400: "Inter_400Regular",

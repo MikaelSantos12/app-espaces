@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { Platform } from 'react-native'
 
 export const Container = styled.SafeAreaView`
   background-color: ${({ theme }) => theme.colors.main};
@@ -8,7 +9,7 @@ export const Container = styled.SafeAreaView`
 export const Content = styled.View<{ isTab?: boolean }>`
   flex-direction: row;
   padding: 16px;
-  padding-top: 32px;
+  padding-top: ${Platform.OS === 'android' ? '40px' : '32px'};
   align-items: center;
   justify-content: ${({ isTab }) => (isTab ? "space-between" : "")};
   gap: 8px;
