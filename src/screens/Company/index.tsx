@@ -1,16 +1,16 @@
-import * as C from "./styles";
 import { Header } from "@/components/Header";
-import Bio from "./Bio";
-import Banners from "./Banners";
 import Ambients from "./Ambients";
-import ToogleArea from "./ToogleArea";
+import Banners from "./Banners";
+import Bio from "./Bio";
 import GridButtons from "./GridButtons";
+import ToogleArea from "./ToogleArea";
 import { CompanyInfo } from "./data";
+import * as C from "./styles";
 
 export const Company = () => {
   return (
     <C.Container>
-      <Header />
+      <Header title="Bar brahma" />
       <C.Content>
         <Bio data={CompanyInfo.bio} />
         <C.Separator />
