@@ -1,4 +1,5 @@
 import { Ratings } from "@/components/Ratings";
+import { useNavigation } from "@react-navigation/native";
 import * as S from "./styles";
 interface Props {
   data: {
@@ -11,6 +12,7 @@ interface Props {
   onPress?: () => void;
 }
 export function PublicationHeader({ data, onPress }: Props) {
+  const navigation = useNavigation();
   return (
     <>
       <S.Header activeOpacity={1} onPress={onPress}>
@@ -29,7 +31,10 @@ export function PublicationHeader({ data, onPress }: Props) {
         <S.Title>
           <S.Highlight>{data.username}</S.Highlight>
           {"\n"}
-          em <S.Highlight>{data.companyName}</S.Highlight>
+          em
+          <S.Highlight onPress={() => navigation.navigate("company" as never)}>
+            {data.companyName}
+          </S.Highlight>
         </S.Title>
       </S.Header>
       <S.Rating>

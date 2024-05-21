@@ -1,12 +1,12 @@
 import styled from "styled-components/native";
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
 export const Content = styled.ScrollView`
-  padding: 0 8px;
+  padding: 16px;
 `;
 
 export const Row = styled.View`
@@ -16,18 +16,18 @@ export const Row = styled.View`
   flex: 1;
   height: 100%;
   margin-top: 10px;
-`
+`;
 
 export const EventToggle = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-`
+`;
 
 export const Column = styled.View`
   flex-direction: column;
   gap: 8px;
-`
+`;
 
 export const FullRow = styled.View`
   flex-direction: row;
@@ -49,11 +49,11 @@ export const CallToAction = styled.TouchableOpacity`
   border-radius: 4px;
   justify-content: center;
   align-items: center;
-`
+`;
 
 export const Separator = styled.View`
   margin: 8px 0;
-`
+`;
 
 export const Heading = styled.Text`
   font-size: 20px;

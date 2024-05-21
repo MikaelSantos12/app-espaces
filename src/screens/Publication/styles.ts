@@ -3,7 +3,6 @@ import styled from "styled-components/native";
 export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.background};
   flex: 1;
-  position: relative;
 `;
 
 export const Content = styled.ScrollView`
@@ -18,13 +17,8 @@ export const Title = styled.Text`
 `;
 
 export const Bottom = styled.View`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 16px;
-  padding-bottom: 48px;
-  background-color: ${({ theme }) => theme.colors.background};
+  padding: 24px 16px;
+
   border-top-width: 1px;
   border-top-color: ${({ theme }) => theme.colors.card};
 `;
