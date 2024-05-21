@@ -6,12 +6,13 @@ export const Container = styled.SafeAreaView`
   width: 100%;
 `;
 
-export const Content = styled.View<{ isTab?: boolean }>`
+export const Content = styled.View<{ isTab?: boolean; logoOnly?: boolean }>`
   flex-direction: row;
   padding: 16px;
-  padding-top: ${Platform.OS === 'android' ? '40px' : '32px'};
+  padding-top: ${Platform.OS === "android" ? "40px" : "32px"};
   align-items: center;
-  justify-content: ${({ isTab }) => (isTab ? "space-between" : "")};
+  justify-content: ${({ isTab, logoOnly }) =>
+    logoOnly ? "center" : isTab ? "space-between" : ""};
   gap: 8px;
 `;
 
