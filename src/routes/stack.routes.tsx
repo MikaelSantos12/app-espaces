@@ -5,6 +5,7 @@ import { NewList } from "@/screens/NewList";
 import { NewPublication } from "@/screens/NewPublication";
 import { Publication } from "@/screens/Publication";
 import { ShowsAndEvents } from "@/screens/ShowsAndEvents";
+import { SignIn } from "@/screens/SignIn";
 import { createStackNavigator } from "@react-navigation/stack";
 import { TabStack } from "./app.routes";
 
@@ -17,12 +18,12 @@ type StackRoutes = {
   company: undefined;
   showsAndEvents: undefined;
   banner: undefined;
+  signIn: undefined;
 };
 
 // Crie o navegador de stack
 const Stack = createStackNavigator<StackRoutes>();
 
-// Função para renderizar as telas de stack
 export function AppRoutes() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -34,6 +35,7 @@ export function AppRoutes() {
       <Stack.Screen name="company" component={Company} />
       <Stack.Screen name="showsAndEvents" component={ShowsAndEvents} />
       <Stack.Screen name="banner" component={Banner} />
+      <Stack.Screen name="signIn" component={SignIn} />
     </Stack.Navigator>
   );
 }

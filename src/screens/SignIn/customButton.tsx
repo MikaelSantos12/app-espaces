@@ -1,7 +1,7 @@
+import { IconProps } from "phosphor-react-native";
 import React from "react";
 import { TouchableOpacityProps } from "react-native";
 import styled from "styled-components/native";
-import { IconProps } from "phosphor-react-native";
 
 interface ButtonProps extends TouchableOpacityProps {
   title: string;
@@ -24,9 +24,9 @@ const ButtonText = styled.Text`
   color: #fff;
 `;
 
-const CustomButton: React.FC<ButtonProps> = ({ title, Icon }) => {
+const CustomButton: React.FC<ButtonProps> = ({ title, Icon, ...rest }) => {
   return (
-    <ButtonContainer activeOpacity={0.6}>
+    <ButtonContainer activeOpacity={0.6} {...rest}>
       <Icon size={24} weight="bold" color="#fff" />
       <ButtonText>{title}</ButtonText>
     </ButtonContainer>

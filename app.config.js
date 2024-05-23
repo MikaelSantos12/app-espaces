@@ -4,7 +4,7 @@ module.exports = {
   expo: {
     name: "app-espaces",
     slug: "app-espaces",
-    scheme: "app-spaces",
+    scheme: "app-espaces",
     version: "1.0.0",
     orientation: "portrait",
     icon: "./src/assets/icon.png",
@@ -32,5 +32,10 @@ module.exports = {
       favicon: "./src/assets/favicon.png",
     },
     plugins: ["expo-font"],
+    extra: {
+      eas: {
+        projectId: "762fc348-5559-4ebc-8c8e-7da3c70cc3ca",
+      },
+    },
   },
 };

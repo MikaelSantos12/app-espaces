@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
-import * as C from "./styles";
 import { Header } from "@/components/Header";
-import CustomButton from "./customButton";
 import {
   AppleLogo,
   EnvelopeSimple,
   GoogleLogo,
   Phone,
 } from "phosphor-react-native";
+import React, { useEffect } from "react";
 import Animated, {
-  useSharedValue,
   useAnimatedStyle,
-  withTiming,
+  useSharedValue,
   withRepeat,
   withSequence,
+  withTiming,
 } from "react-native-reanimated";
+import CustomButton from "./customButton";
+import * as C from "./styles";
 
 export const SignIn = () => {
   const rotation = useSharedValue(0);

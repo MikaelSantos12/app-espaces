@@ -1,10 +1,8 @@
 import { CompanySelection } from "@/screens/CompanySelection";
-
 import { Home } from "@/screens/Home";
+
 import { Lists } from "@/screens/List";
 import { Map } from "@/screens/Map";
-import { SignIn } from '@/screens/SignIn'
-import { EnableNotifications } from '@/screens/EnableNotifications'
 import { Profile } from "@/screens/Profile";
 import {
   BottomTabNavigationProp,
@@ -19,9 +17,6 @@ import {
 } from "phosphor-react-native";
 import { Platform } from "react-native";
 import { useTheme } from "styled-components";
-import { EnableLocation } from "@/screens/EnableLocation";
-import { ChooseCity } from "@/screens/ChooseCity";
-import { ConectFriends } from "@/screens/ConectFriends";
 
 type AppRoutes = {
   feed: undefined;
@@ -59,8 +54,8 @@ export function TabStack() {
       }}
     >
       <Screen
-        name="conectFriends"
-        component={ConectFriends}
+        name="feed"
+        component={Home}
         options={{
           tabBarIcon: ({ color, focused }) => (
             <House

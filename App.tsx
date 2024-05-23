@@ -8,13 +8,15 @@ import {
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 import { useFonts } from "expo-font";
+import { createURL } from "expo-linking";
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import theme from "./src/theme";
 dayjs.locale("pt-br");
-
 export default function App() {
+  const url = createURL("app-espaces");
+  console.log(url);
   const [fontsLoaded] = useFonts({
     Nunito_700Bold,
     Nunito_500Medium,
