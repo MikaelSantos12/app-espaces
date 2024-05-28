@@ -15,6 +15,8 @@ module.exports = function (api) {
             "@/storage": "./src/storage",
             "@/theme": "./src/theme",
             "@/utils": "./src/utils",
+            "@/services": "./src/services",
+            "@/storage": "./src/storage",
             "@/lib": "./src/lib",
             "@/__tests__": "./__tests__",
           },

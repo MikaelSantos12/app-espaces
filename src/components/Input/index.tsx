@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Controller } from "react-hook-form";
 import { StyleProp, TextInputProps } from "react-native";
 import * as S from "./styles";
@@ -7,6 +8,7 @@ interface Props extends TextInputProps {
   name: string;
   isTextArea?: boolean;
   style?: StyleProp<any>;
+  error?: string;
 }
 
 export function Input({
@@ -15,24 +17,36 @@ export function Input({
   style,
   isTextArea,
   name,
+  error,
   ...rest
 }: Props) {
+  const [isFocused, setIsFocused] = useState(false);
   return (
     <Controller
       control={control}
       name={name}
       render={({ field: { onChange, value } }) => (
-        <S.InputWrapper style={style} isTextArea={isTextArea}>
-          {Icon && <S.IconWrapper>{Icon}</S.IconWrapper>}
+        <S.Container>
+          <S.InputWrapper
+            style={style}
+            isTextArea={isTextArea}
+            isFocused={isFocused}
+          >
+            {Icon && <S.IconWrapper>{Icon}</S.IconWrapper>}
 
-          <S.StyledInput
-            value={value}
-            onChangeText={onChange}
-            multiline={isTextArea}
-            numberOfLines={10}
-            {...rest}
-          />
-        </S.InputWrapper>
+            <S.StyledInput
+              value={value}
+              onChangeText={onChange}
+              multiline={isTextArea}
+              numberOfLines={10}
+              hasIcon={!!Icon}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              {...rest}
+            />
+          </S.InputWrapper>
+          {error && <S.Error>{error}</S.Error>}
+        </S.Container>
       )}
     />
   );

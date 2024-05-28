@@ -5,7 +5,7 @@ import { NewList } from "@/screens/NewList";
 import { NewPublication } from "@/screens/NewPublication";
 import { Publication } from "@/screens/Publication";
 import { ShowsAndEvents } from "@/screens/ShowsAndEvents";
-import { SignIn } from "@/screens/SignIn";
+
 import { createStackNavigator } from "@react-navigation/stack";
 import { TabStack } from "./app.routes";
 
@@ -35,7 +35,6 @@ export function AppRoutes() {
       <Stack.Screen name="company" component={Company} />
       <Stack.Screen name="showsAndEvents" component={ShowsAndEvents} />
       <Stack.Screen name="banner" component={Banner} />
-      <Stack.Screen name="signIn" component={SignIn} />
     </Stack.Navigator>
   );
 }

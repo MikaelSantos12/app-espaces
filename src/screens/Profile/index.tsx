@@ -1,11 +1,17 @@
 import { Button } from "@/components/Button";
 import { Header } from "@/components/Header";
 import { Publication } from "@/components/Publications";
+import { useAuth } from "@/context/AuthContext";
 import { formatPublicationDate } from "@/utils/format-post-date";
 import { faker } from "@faker-js/faker";
-import { BookmarkSimple, HouseLine, Link } from "phosphor-react-native";
+import {
+  BookmarkSimple,
+  HouseLine,
+  Link,
+  SignOut,
+} from "phosphor-react-native";
 import { useCallback } from "react";
-import { FlatList } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
 import { useTheme } from "styled-components/native";
 import {
   Container,
@@ -23,7 +29,7 @@ import {
 } from "./styles";
 export function Profile() {
   const theme = useTheme();
-
+  const { signOut } = useAuth();
   const data = {
     name: faker.person.fullName(),
     photo: faker.image.avatar(),
@@ -69,6 +75,9 @@ export function Profile() {
     <Container>
       <Header />
       <Content>
+        <TouchableOpacity onPress={signOut}>
+          <SignOut />
+        </TouchableOpacity>
         <Top>
           <ProfileImage source={{ uri: data.photo }} />
           <ProfileWrapper>
