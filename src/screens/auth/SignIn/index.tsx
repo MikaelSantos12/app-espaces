@@ -1,4 +1,5 @@
 import { Header } from "@/components/Header";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -38,7 +39,25 @@ export const SignIn = () => {
       transform: [{ rotateZ: `${rotation.value}deg` }],
     };
   });
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId:
+        "782600279407-sbgbq57tcukta7na24doqgi4mdnqhfct.apps.googleusercontent.com",
+      iosClientId:
+        "782600279407-cgtifm6c5g1ln9v9jkk1a43pj5vu8g8t.apps.googleusercontent.com",
 
+      offlineAccess: true,
+    });
+  }, []);
+  const handleSignInGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log("userInfo", userInfo);
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
   return (
     <C.Container>
       <Header logoOnly />
@@ -51,7 +70,11 @@ export const SignIn = () => {
           style={[{ width: 215, height: 280, marginTop: 54 }, animatedStyle]}
         />
         <C.Column>
-          <CustomButton Icon={GoogleLogo} title="Conectar com google" />
+          <CustomButton
+            Icon={GoogleLogo}
+            title="Conectar com google"
+            onPress={handleSignInGoogle}
+          />
           <CustomButton Icon={AppleLogo} title="Conectar com apple" />
           <CustomButton
             Icon={EnvelopeSimple}
