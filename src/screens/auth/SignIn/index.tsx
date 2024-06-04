@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
+import { useAuth } from "@/context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import {
   AppleLogo,
@@ -22,6 +23,8 @@ import * as C from "./styles";
 export const SignIn = () => {
   const rotation = useSharedValue(0);
   const navigation = useNavigation();
+
+  const { signInWithGoogle } = useAuth();
 
   useEffect(() => {
     rotation.value = withRepeat(
@@ -53,7 +56,11 @@ export const SignIn = () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log("userInfo", userInfo);
+      if (!userInfo) {
+        return;
+      }
+      const data = await signInWithGoogle(userInfo?.idToken);
+      console.log(data.status);
     } catch (err) {
       console.log("err", err);
     }

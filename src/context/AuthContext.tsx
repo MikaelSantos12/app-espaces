@@ -17,7 +17,8 @@ import { AxiosResponse } from "axios";
 export type AuthContextDataProps = {
   user: any;
   signInWithEmail: (email: string) => Promise<AxiosResponse>;
-  updateUser: (user: any) => void;
+  signInWithGoogle: (token: string | null) => Promise<AxiosResponse>;
+  updateUser: (token: string, refreshToken: string) => void;
   signOut: () => void;
 };
 
@@ -36,10 +37,19 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     const res = await apiAuth.post("/sessions/email", {
       email,
     });
+
     return res;
   }
-  const updateUser = (token: string) => {
-    saveStorageToken({ token });
+  async function signInWithGoogle(token: string | null) {
+    const res = await apiAuth.post("/sessions/google", {
+      token,
+    });
+    const { data } = res;
+    updateUser(data.access_token, data.refresh_token);
+    return res;
+  }
+  const updateUser = (token: string, refreshToken: string) => {
+    saveStorageToken({ token, refreshToken });
     setUser({
       token,
     });
@@ -47,10 +57,10 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
   async function loadUserData() {
     try {
-      const { token } = await getStorageToken();
+      const { token, refreshToken } = await getStorageToken();
 
       if (token) {
-        updateUser(token);
+        updateUser(token, refreshToken);
       }
     } catch (error) {
       throw error;
@@ -70,6 +80,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         signInWithEmail,
         updateUser,
         signOut,
+        signInWithGoogle,
       }}
     >
       {children}

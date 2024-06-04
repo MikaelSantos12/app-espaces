@@ -22,7 +22,7 @@ export function EmailSended({ route }) {
 
   async function authenticate() {
     try {
-      await apiAuth.post(
+      const { data } = await apiAuth.post(
         "/sessions/validate",
         {},
         {
@@ -32,7 +32,7 @@ export function EmailSended({ route }) {
         }
       );
 
-      updateUser(route.params?.token);
+      updateUser(data.access_token, data.refresh_token);
     } catch (err) {
       console.log(route.params?.token);
       Toast.show({
