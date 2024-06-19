@@ -19,6 +19,8 @@ module.exports = function (api) {
             "@/storage": "./src/storage",
             "@/lib": "./src/lib",
             "@/__tests__": "./__tests__",
+            "@/hooks": "./src/hooks",
+            "@/dtos": "./src/dtos",
           },
         },
       ],

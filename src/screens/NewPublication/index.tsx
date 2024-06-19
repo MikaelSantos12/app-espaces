@@ -1,8 +1,11 @@
 import { Button } from "@/components/Button";
 import { Header } from "@/components/Header";
 import { Input } from "@/components/Input";
-import { faker } from "@faker-js/faker";
+import { api } from "@/services/api";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Slider } from "@miblanchard/react-native-slider";
+import { useNavigation } from "@react-navigation/native";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as ImagePicker from "expo-image-picker";
 import { LinearGradient } from "expo-linear-gradient";
 import { Tag } from "phosphor-react-native";
@@ -10,6 +13,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Alert, KeyboardAvoidingView, Platform } from "react-native";
 import { useTheme } from "styled-components/native";
+import { z } from "zod";
 import { CompanyCard } from "../CompanySelection/CompanyCard";
 import { Photos } from "./Photos";
 import {
@@ -24,14 +28,18 @@ import {
   TagButton,
   Title,
 } from "./styles";
-const company = {
-  image: faker.image.url(),
-  company: faker.company.name(),
-  location: faker.location.streetAddress(),
-};
-export function NewPublication() {
-  const [value, setValue] = useState(0);
 
+const publicationSchema = z.object({
+  content: z.string(),
+});
+type PublicationSchema = z.infer<typeof publicationSchema>;
+
+export function NewPublication({ route }) {
+  const company = route?.params?.company;
+
+  const navigation = useNavigation();
+
+  const [value, setValue] = useState(0);
   const theme = useTheme();
 
   const [images, setImages] = useState(Array(6).fill(null));
@@ -46,22 +54,60 @@ export function NewPublication() {
       });
 
       if (!result.canceled) {
-        console.log(result);
+        const formData = new FormData();
+        formData.append("file", {
+          uri: result.assets[0].uri,
+          name: result.assets[0].uri.split("/").pop(), // Extract file name
+          type: result.assets[0].type || "image/jpeg", // Set file type
+        });
+
+        const { data } = await api.feed.post("/post/images", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
         const novasImagens = [...images];
-        novasImagens[index] = result.assets[0].uri;
+        novasImagens[index] = data.url;
         setImages(novasImagens);
       }
     } catch (error: any) {
       Alert.alert("Erro ao selecionar a imagem", error.message);
     }
   };
-
+  const queryClient = useQueryClient();
   const handleRemove = (index: number) => {
     const newImages = [...images];
     newImages.splice(index, 1);
     setImages(newImages);
   };
-  const { control } = useForm();
+  const { control, handleSubmit } = useForm<PublicationSchema>({
+    resolver: zodResolver(publicationSchema),
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (data: PublicationSchema) => {
+      const postImages = images.filter((item) => item !== null);
+      return api.feed.post("/post/create", {
+        content: data.content,
+        rating: value,
+        postImages,
+        companyId: company.ID,
+      });
+    },
+    onSuccess: (res) => {
+      queryClient.invalidateQueries({
+        queryKey: ["useFeed"],
+      });
+      navigation.navigate("feed" as never);
+    },
+    onError: (err) => {},
+  });
+
+  const handleSendEmail = (data: PublicationSchema) => {
+    mutate(data);
+  };
+  console.log(images);
   return (
     <Container>
       <Header title="Nova publicação" />
@@ -134,12 +180,17 @@ export function NewPublication() {
           </PhotosWrapper>
 
           <Input
-            name="evaluate"
+            name="content"
             control={control}
             placeholder="Escreva sua avaliação"
             isTextArea
           />
-          <Button title="Publicar" size="full" style={{ marginTop: 12 }} />
+          <Button
+            title="Publicar"
+            size="full"
+            style={{ marginTop: 12 }}
+            onPress={handleSubmit(handleSendEmail)}
+          />
         </KeyboardAvoidingView>
       </Content>
     </Container>

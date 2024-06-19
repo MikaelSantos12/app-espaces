@@ -8,9 +8,9 @@ import {
 
 interface Props {
   data: {
-    image: string;
-    company: string;
-    location: string;
+    PHOTO: string;
+    NAME: string;
+    LOGRADOURO: string;
   };
   handlePress?: () => void;
 }
@@ -18,10 +18,10 @@ interface Props {
 export function CompanyCard({ data, handlePress }: Props) {
   return (
     <Container onPress={handlePress}>
-      <CompanyImage source={{ uri: data.image }} />
+      <CompanyImage source={{ uri: data.PHOTO }} />
       <TextWrapper>
-        <Title>{data.company}</Title>
-        <Subtitle>{data.location}</Subtitle>
+        <Title>{data.NAME}</Title>
+        <Subtitle>{data.LOGRADOURO}</Subtitle>
       </TextWrapper>
     </Container>
   );

@@ -18,6 +18,7 @@ module.exports = {
     ios: {
       bundleIdentifier: "com.eshows.appespaces",
       supportsTablet: true,
+      usesAppleSignIn: true,
       config: {
         googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
       },
@@ -30,6 +31,8 @@ module.exports = {
             ],
           },
         ],
+        NSUserTrackingUsageDescription:
+          "Este aplicativo usará suas notificações para...",
       },
     },
     android: {
@@ -51,6 +54,7 @@ module.exports = {
           iosUrlScheme: "com.googleusercontent.apps._some_id_here_",
         },
       ],
+      ["expo-notifications"],
     ],
     extra: {
       eas: {

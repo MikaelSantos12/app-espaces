@@ -1,7 +1,7 @@
 import { Button } from "@/components/Button";
 import { Header } from "@/components/Header";
 import { Input } from "@/components/Input";
-import { useAuth } from "@/context/AuthContext";
+import { useEmailSignIn } from "@/hooks/useEmailSignIn";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
@@ -24,7 +24,7 @@ const sendEmailSchema = z.object({
 });
 type SendEmailSchema = z.infer<typeof sendEmailSchema>;
 export function SendEmailAuth() {
-  const { signInWithEmail } = useAuth();
+  const { signInWithEmail } = useEmailSignIn();
   const navigation = useNavigation();
   const theme = useTheme();
   const {
@@ -58,7 +58,7 @@ export function SendEmailAuth() {
   useEffect(() => {
     setValue("email", "mikaelsantos120@outlook.com");
   }, []);
-  console.log(isPending);
+
   return (
     <Container>
       <Header logoOnly />

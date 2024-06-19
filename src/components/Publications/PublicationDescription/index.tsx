@@ -1,9 +1,9 @@
 import * as S from "./styles";
 interface Props {
   data: {
-    description: string;
+    content: string;
   };
 }
 export function PublicationDescription({ data }: Props) {
-  return <S.Descripton>{data.description}</S.Descripton>;
+  return <S.Descripton>{data.content}</S.Descripton>;
 }

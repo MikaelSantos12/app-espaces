@@ -36,6 +36,8 @@ export const RatingCircle = styled.View`
   border-radius: 999px;
   justify-content: center;
   align-items: center;
+  width: 48px;
+  height: 48px;
   border: 2px solid ${({ theme }) => theme.colors.text};
   padding: 10px;
 `;

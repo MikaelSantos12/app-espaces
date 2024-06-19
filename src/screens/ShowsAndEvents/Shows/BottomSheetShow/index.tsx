@@ -22,9 +22,7 @@ export function BottomSheetShow({ bottomSheetModalRef }: Props) {
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
-  }, []);
+  const handleSheetChanges = useCallback((index: number) => {}, []);
   const renderBackdrop = useCallback(
     (props) => <BottomSheetBackdrop {...props} />,
     []

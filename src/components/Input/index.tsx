@@ -9,6 +9,7 @@ interface Props extends TextInputProps {
   isTextArea?: boolean;
   style?: StyleProp<any>;
   error?: string;
+  mask?: string;
 }
 
 export function Input({
@@ -18,6 +19,7 @@ export function Input({
   isTextArea,
   name,
   error,
+  mask,
   ...rest
 }: Props) {
   const [isFocused, setIsFocused] = useState(false);
@@ -33,17 +35,31 @@ export function Input({
             isFocused={isFocused}
           >
             {Icon && <S.IconWrapper>{Icon}</S.IconWrapper>}
-
-            <S.StyledInput
-              value={value}
-              onChangeText={onChange}
-              multiline={isTextArea}
-              numberOfLines={10}
-              hasIcon={!!Icon}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-              {...rest}
-            />
+            {mask ? (
+              <S.MaskStyledInput
+                value={value}
+                onChangeText={onChange}
+                multiline={isTextArea}
+                numberOfLines={10}
+                hasIcon={!!Icon}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                options={{ mask: mask }}
+                type="custom"
+                {...rest}
+              />
+            ) : (
+              <S.StyledInput
+                value={value}
+                onChangeText={onChange}
+                multiline={isTextArea}
+                numberOfLines={10}
+                hasIcon={!!Icon}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                {...rest}
+              />
+            )}
           </S.InputWrapper>
           {error && <S.Error>{error}</S.Error>}
         </S.Container>

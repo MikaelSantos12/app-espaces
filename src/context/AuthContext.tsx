@@ -6,20 +6,30 @@ import {
   useState,
 } from "react";
 
-import { apiAuth } from "@/services/api-auth";
+import { api } from "@/services/api";
 import {
   getStorageToken,
   removeStorageToken,
   saveStorageToken,
 } from "@/storage/storageAuth";
-import { AxiosResponse } from "axios";
-
+type User = {
+  id?: string;
+  name?: string;
+  username?: string;
+  token?: string;
+  refresh_token?: string;
+  firstLoginProps?: FirstLoginProps;
+};
 export type AuthContextDataProps = {
   user: any;
-  signInWithEmail: (email: string) => Promise<AxiosResponse>;
-  signInWithGoogle: (token: string | null) => Promise<AxiosResponse>;
+
   updateUser: (token: string, refreshToken: string) => void;
+  setUser: (payload: User) => void;
   signOut: () => void;
+};
+type FirstLoginProps = {
+  access_token: string;
+  refresh_token: string;
 };
 
 type AuthContextProviderProps = {
@@ -31,23 +41,8 @@ export const AuthContext = createContext<AuthContextDataProps>(
 );
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState<User>({} as User);
 
-  async function signInWithEmail(email: string) {
-    const res = await apiAuth.post("/sessions/email", {
-      email,
-    });
-
-    return res;
-  }
-  async function signInWithGoogle(token: string | null) {
-    const res = await apiAuth.post("/sessions/google", {
-      token,
-    });
-    const { data } = res;
-    updateUser(data.access_token, data.refresh_token);
-    return res;
-  }
   const updateUser = (token: string, refreshToken: string) => {
     saveStorageToken({ token, refreshToken });
     setUser({
@@ -58,9 +53,12 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   async function loadUserData() {
     try {
       const { token, refreshToken } = await getStorageToken();
-
+      console.log("token", token);
       if (token) {
-        updateUser(token, refreshToken);
+        api.feed.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        setUser({
+          token,
+        });
       }
     } catch (error) {
       throw error;
@@ -70,6 +68,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     await removeStorageToken();
     setUser({});
   };
+
   useEffect(() => {
     loadUserData();
   }, []);
@@ -77,10 +76,10 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     <AuthContext.Provider
       value={{
         user,
-        signInWithEmail,
+
         updateUser,
         signOut,
-        signInWithGoogle,
+        setUser,
       }}
     >
       {children}

@@ -5,8 +5,9 @@ import { AppRoutes } from "./stack.routes";
 
 export function Routes() {
   const { user } = useAuth();
+
   const linking = {
-    prefixes: ["exp://192.168.1.6:8081/--/app-espaces"],
+    prefixes: ["exp://192.168.1.8:8081/--/app-espaces"],
     config: {
       screens: {
         home: {

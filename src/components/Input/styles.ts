@@ -1,6 +1,6 @@
 import { TextInput } from "react-native";
+import { TextInputMask } from "react-native-masked-text";
 import styled from "styled-components/native";
-
 interface Props {
   isTextArea?: boolean | undefined;
   isFocused?: boolean | undefined;
@@ -27,7 +27,13 @@ export const StyledInput = styled(TextInput)<Props>`
   padding-left: ${({ hasIcon }) => (hasIcon ? "40px" : "12px")};
   height: ${({ isTextArea }) => (isTextArea ? "128px" : "48px")};
 `;
-
+export const MaskStyledInput = styled(TextInputMask)<Props>`
+  height: 48px;
+  width: 100%;
+  padding: 12px 40px 12px 12px;
+  padding-left: ${({ hasIcon }) => (hasIcon ? "40px" : "12px")};
+  height: ${({ isTextArea }) => (isTextArea ? "128px" : "48px")};
+`;
 export const IconWrapper = styled.View`
   position: absolute;
   left: 10px;

@@ -1,8 +1,8 @@
 import styled from "styled-components/native";
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
   flex: 1;
-`
+`;
 
 export const Center = styled.View`
   justify-content: center;
@@ -15,7 +15,7 @@ export const Title = styled.Text`
   font-size: ${({ theme }) => theme.font_size.lg};
   font-family: ${({ theme }) => theme.font.nunito_700};
   margin: 8px 0;
-`
+`;
 
 export const SubTitle = styled.Text`
   font-size: ${({ theme }) => theme.font_size.md};
