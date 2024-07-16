@@ -1,5 +1,5 @@
 import { useAuth } from "@/context/AuthContext";
-import { api } from "@/services/api";
+import { api, apis } from "@/services/api";
 import { isFirstLogin } from "@/storage/storageAuth";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { useNavigation } from "@react-navigation/native";
@@ -31,10 +31,11 @@ export const useGoogleSignIn = () => {
         token: userInfo?.idToken,
       });
       const { data } = res;
-
-      api.auth.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${data.access_token}`;
+      apis.forEach((api) => {
+        api.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${data.access_token}`;
+      });
 
       const firstLogin = await isFirstLogin();
       if (firstLogin) {

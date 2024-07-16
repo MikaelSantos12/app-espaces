@@ -31,3 +31,56 @@ export const Subtitle = styled.Text`
 export const IconWrapper = styled.View`
   align-items: center;
 `;
+export const ProfilePhoto = styled.View`
+  width: 160px;
+  height: 160px;
+  border-radius: 99px;
+  align-self: center;
+  border: 1px solid ${({ theme }) => theme.colors.buttons};
+
+  background-color: ${({ theme }) => theme.colors.background};
+`;
+export const ProfileContainer = styled.View`
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+export const ProfilePic = styled.Image`
+  width: 100%;
+  height: 100%;
+
+  border-radius: 999px;
+`;
+export const AddPhoto = styled.TouchableOpacity`
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 10;
+  bottom: 10;
+  border-radius: 99px;
+  background-color: ${({ theme }) => theme.colors.background};
+  justify-content: center;
+  align-items: center;
+`;
+
+export const AddProfilePhoto = styled.TouchableOpacity`
+  position: absolute;
+  border-radius: 99px;
+  background-color: ${({ theme }) => theme.colors.background};
+  right: -16px;
+  padding: 8px;
+  border: 1px solid ${({ theme }) => theme.colors.buttons};
+`;
+export const EditPhoto = styled.View`
+  position: absolute;
+
+  flex-direction: row;
+`;
+export const IconContainer = styled.TouchableOpacity`
+  border-radius: 99px;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 8px;
+`;

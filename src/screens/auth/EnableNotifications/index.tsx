@@ -5,7 +5,7 @@ import { Header } from "@/components/Header";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import React, { useEffect, useState } from "react";
-import { Linking, Platform } from "react-native";
+import { AppState, Linking, Platform } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -14,7 +14,11 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import { useIsFocused, useNavigation } from "@react-navigation/native";
+import {
+  CommonActions,
+  useIsFocused,
+  useNavigation,
+} from "@react-navigation/native";
 import * as C from "./styles";
 
 export const EnableNotifications = ({ route }) => {
@@ -77,9 +81,19 @@ export const EnableNotifications = ({ route }) => {
             projectId,
           })
         ).data;
-        navigation.navigate("enableLocation", {
-          ...route.params,
-        });
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [
+              {
+                name: "enableLocation",
+                params: {
+                  ...route.params,
+                },
+              },
+            ],
+          })
+        );
       } catch (e) {
         token = `${e}`;
       }
@@ -90,11 +104,20 @@ export const EnableNotifications = ({ route }) => {
 
     return token;
   }
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (nextAppState) => {
+      if (nextAppState === "active") {
+        registerForPushNotificationsAsync();
+      }
+    });
 
+    return () => {
+      subscription.remove();
+    };
+  }, []);
   useEffect(() => {
     registerForPushNotificationsAsync();
-  }, [isFocused]);
-
+  }, []);
   return (
     <C.Container>
       <Header logoOnly />

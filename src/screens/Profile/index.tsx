@@ -11,7 +11,7 @@ import {
   SignOut,
 } from "phosphor-react-native";
 import { useCallback } from "react";
-import { FlatList, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { useTheme } from "styled-components/native";
 import {
   Container,
@@ -121,7 +121,7 @@ export function Profile() {
           </Row>
         </Widget>
 
-        <FlatList
+        {/* <FlatList
           scrollEnabled={false}
           data={publication}
           renderItem={renderItem}
@@ -131,7 +131,7 @@ export function Profile() {
             marginTop: 32,
             paddingBottom: 48,
           }}
-        />
+        /> */}
       </Content>
     </Container>
   );

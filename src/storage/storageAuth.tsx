@@ -17,11 +17,11 @@ export async function saveStorageToken({
 export async function getStorageToken() {
   const response = await AsyncStorage.getItem(USER_TOKEN);
   const responseRefreshToken = await AsyncStorage.getItem(USER_REFRESH_TOKEN);
-  const token = response ? JSON.parse(response) : {};
+  const token = response ? JSON.parse(response) : null;
 
   const refreshToken = responseRefreshToken
     ? JSON.parse(responseRefreshToken)
-    : {};
+    : null;
 
   return { token, refreshToken };
 }

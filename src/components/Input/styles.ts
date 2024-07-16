@@ -40,6 +40,12 @@ export const IconWrapper = styled.View`
 
   align-items: center;
 `;
+export const RightIconWrapper = styled.View`
+  position: absolute;
+  right: 10px;
+
+  align-items: center;
+`;
 
 export const Error = styled.Text`
   font-size: ${({ theme }) => theme.font_size.md};

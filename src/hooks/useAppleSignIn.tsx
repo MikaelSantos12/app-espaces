@@ -1,5 +1,5 @@
 import { useAuth } from "@/context/AuthContext";
-import { api } from "@/services/api";
+import { api, apis } from "@/services/api";
 import { isFirstLogin } from "@/storage/storageAuth";
 import { useNavigation } from "@react-navigation/native";
 import * as AppleAuthentication from "expo-apple-authentication";
@@ -19,9 +19,12 @@ export function useAppleSignIn() {
       const { data } = await api.auth.post("/sessions/apple", {
         token: credential.identityToken,
       });
-      api.auth.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${data.access_token}`;
+      apis.forEach((api) => {
+        api.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${data.access_token}`;
+      });
+
       const firstLogin = await isFirstLogin();
       if (firstLogin) {
         setUser({

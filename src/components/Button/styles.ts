@@ -21,6 +21,7 @@ export const Container = styled(TouchableOpacity)<Props>`
   align-self: ${({ size }) => (size === "sm" ? "center" : "auto")};
   align-items: center;
   justify-content: center;
+  opacity: ${({ disabled }) => (disabled ? 0.7 : 1)};
 `;
 
 export const Title = styled.Text<{ color?: string }>`

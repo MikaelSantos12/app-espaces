@@ -4,10 +4,10 @@ import { Button } from "@/components/Button";
 import { Header } from "@/components/Header";
 import { useLocation } from "@/context/LocationContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 import * as Location from "expo-location";
 import { useEffect } from "react";
-import { Linking } from "react-native";
+import { AppState, Linking } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -21,7 +21,7 @@ export const EnableLocation = ({ route }) => {
   const translation = useSharedValue(0);
   const { location } = useLocation();
   const navigation = useNavigation();
-  const isFocused = useIsFocused();
+
   useEffect(() => {
     translation.value = withRepeat(
       withSequence(
@@ -38,19 +38,43 @@ export const EnableLocation = ({ route }) => {
       transform: [{ translateY: translation.value }],
     };
   });
-  useEffect(() => {
-    async function verifyLocation() {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      const loginType = await AsyncStorage.getItem("loginType");
-      const nextRoute = loginType == "sms" ? "birthday" : "sendSmsOtp";
-      if (status === "granted") {
-        await AsyncStorage.removeItem("loginType");
-        navigation.navigate(nextRoute, { ...route.params });
-      }
+  async function verifyLocation() {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    const loginType = await AsyncStorage.getItem("loginType");
+    const nextRoute = loginType == "sms" ? "birthday" : "sendSmsOtp";
+    if (status === "granted") {
+      await AsyncStorage.removeItem("loginType");
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [
+            {
+              name: nextRoute,
+              params: {
+                ...route.params,
+              },
+            },
+          ],
+        })
+      );
     }
-    verifyLocation();
-  }, [isFocused]);
+  }
 
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (nextAppState) => {
+      if (nextAppState === "active") {
+        verifyLocation();
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    verifyLocation();
+  }, []);
   return (
     <C.Container>
       <Header logoOnly />

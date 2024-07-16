@@ -2,6 +2,7 @@ import { Button } from "@/components/Button";
 import { Header } from "@/components/Header";
 import InputAutocomplete from "@/components/InputAutocomplete";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 import { View } from "react-native";
 import { useTheme } from "styled-components/native";
 import { Container, Content, Main, Title } from "./styles";
@@ -9,13 +10,17 @@ import { Container, Content, Main, Title } from "./styles";
 export function SelectCity({ route }) {
   const navigation = useNavigation();
   const theme = useTheme();
-
-  const handlePress = (data: any) => {
+  const [selectedCity, setSelectedCity] = useState("");
+  const handleSelect = (data: any) => {
+    setSelectedCity(data.city);
+  };
+  const handlePress = () => {
     navigation.navigate("username", {
-      address: data,
+      address: selectedCity,
       ...route.params,
     });
   };
+  console.log(selectedCity);
   return (
     <Container>
       <Header logoOnly />
@@ -25,10 +30,15 @@ export function SelectCity({ route }) {
         <Main>
           <InputAutocomplete
             placeholder="Selecione sua cidade"
-            handlePress={handlePress}
+            handlePress={handleSelect}
           />
           <View style={{ height: 60 }}>
-            <Button title="Enviar" size="full" />
+            <Button
+              title="Enviar"
+              size="full"
+              onPress={handlePress}
+              disabled={selectedCity === ""}
+            />
           </View>
         </Main>
       </Content>

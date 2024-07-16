@@ -11,7 +11,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Tag } from "phosphor-react-native";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Alert, KeyboardAvoidingView, Platform } from "react-native";
+import { KeyboardAvoidingView, Platform } from "react-native";
 import { useTheme } from "styled-components/native";
 import { z } from "zod";
 import { CompanyCard } from "../CompanySelection/CompanyCard";
@@ -45,34 +45,35 @@ export function NewPublication({ route }) {
   const [images, setImages] = useState(Array(6).fill(null));
 
   const handlePress = async (index: number) => {
-    try {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      });
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
 
-      if (!result.canceled) {
-        const formData = new FormData();
-        formData.append("file", {
-          uri: result.assets[0].uri,
-          name: result.assets[0].uri.split("/").pop(), // Extract file name
-          type: result.assets[0].type || "image/jpeg", // Set file type
-        });
+    if (!result.canceled) {
+      const fileExtension = result.assets[0].uri.split(".").pop();
+      const file = {
+        uri: result.assets[0].uri,
+        name: result.assets[0].uri.split("/").pop(), // Extract file name
+        type: `${result.assets[0].type}/${fileExtension}`,
+      };
 
+      const formData = new FormData();
+
+      formData.append("file", file);
+
+      try {
         const { data } = await api.feed.post("/post/images", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         });
-
         const novasImagens = [...images];
         novasImagens[index] = data.url;
         setImages(novasImagens);
-      }
-    } catch (error: any) {
-      Alert.alert("Erro ao selecionar a imagem", error.message);
+      } catch (err) {}
     }
   };
   const queryClient = useQueryClient();
@@ -88,6 +89,7 @@ export function NewPublication({ route }) {
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: PublicationSchema) => {
       const postImages = images.filter((item) => item !== null);
+
       return api.feed.post("/post/create", {
         content: data.content,
         rating: value,
@@ -101,13 +103,15 @@ export function NewPublication({ route }) {
       });
       navigation.navigate("feed" as never);
     },
-    onError: (err) => {},
+    onError: (err) => {
+      console.log(err);
+    },
   });
 
   const handleSendEmail = (data: PublicationSchema) => {
     mutate(data);
   };
-  console.log(images);
+
   return (
     <Container>
       <Header title="Nova publicação" />

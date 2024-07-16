@@ -18,4 +18,9 @@ export interface Post {
   rating?: number;
   updatedAt: string;
   visitedAt?: string;
+  isLiked: boolean;
+  _count: {
+    Like: number;
+    Comment: number;
+  };
 }

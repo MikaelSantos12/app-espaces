@@ -1,6 +1,6 @@
 import { Header } from "@/components/Header";
 import { useAuth } from "@/context/AuthContext";
-import { api } from "@/services/api";
+import { api, apis } from "@/services/api";
 import { isFirstLogin } from "@/storage/storageAuth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
@@ -35,10 +35,13 @@ export function EmailSended({ route }) {
       );
 
       const firstLogin = await isFirstLogin();
+
       if (firstLogin) {
-        api.auth.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${data.access_token}`;
+        apis.forEach((api) => {
+          api.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${data.access_token}`;
+        });
         setUser({
           firstLoginProps: {
             access_token: data.access_token,
@@ -52,9 +55,9 @@ export function EmailSended({ route }) {
           type: loginType,
         });
       }
+
       updateUser(data.access_token, data.refresh_token);
     } catch (err) {
-      console.log(err);
       Toast.show({
         type: "error",
         text1: "Link invalido!",

@@ -1,4 +1,5 @@
 import { Birthday } from "@/screens/auth/Birthday";
+import { ConnectFriends } from "@/screens/auth/ConectFriends";
 import { ConfirmOTP } from "@/screens/auth/ConfirmOTP";
 import { Email } from "@/screens/auth/Email";
 import { EmailSended } from "@/screens/auth/EmailSended";
@@ -25,6 +26,7 @@ type StackRoutes = {
   selectCity: undefined;
   sendSmsAuth: undefined;
   email: undefined;
+  connectFriends: undefined;
 };
 
 // Crie o navegador de stack
@@ -41,6 +43,7 @@ export function AuthRoutes() {
         component={EnableNotifications}
       />
       <Stack.Screen name="enableLocation" component={EnableLocation} />
+      <Stack.Screen name="connectFriends" component={ConnectFriends} />
       <Stack.Screen name="sendSmsOtp" component={SendSmsOtp} />
       <Stack.Screen name="confirmOTP" component={ConfirmOTP} />
       <Stack.Screen name="birthday" component={Birthday} />

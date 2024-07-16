@@ -7,7 +7,7 @@ export function Routes() {
   const { user } = useAuth();
 
   const linking = {
-    prefixes: ["exp://192.168.1.8:8081/--/app-espaces"],
+    prefixes: ["exp://172.16.0.139:8081/--/app-espaces"],
     config: {
       screens: {
         home: {
@@ -19,7 +19,7 @@ export function Routes() {
       },
     },
   };
-
+  console.log(user);
   return (
     <NavigationContainer linking={linking}>
       {!user?.token ? <AuthRoutes /> : <AppRoutes />}

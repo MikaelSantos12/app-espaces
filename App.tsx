@@ -1,4 +1,5 @@
 import { AuthContextProvider } from "@/context/AuthContext";
+import { BottomSheetProvider } from "@/context/BottomSheetContext";
 import { LocationProvider } from "@/context/LocationContext";
 import { Routes } from "@/routes";
 import { Inter_400Regular } from "@expo-google-fonts/inter";
@@ -17,6 +18,7 @@ import { ActivityIndicator } from "react-native";
 import Toast from "react-native-toast-message";
 import { ThemeProvider } from "styled-components/native";
 import theme from "./src/theme";
+
 dayjs.locale("pt-br");
 const queryClient = new QueryClient();
 export default function App() {
@@ -35,8 +37,10 @@ export default function App() {
       <QueryClientProvider client={queryClient}>
         <LocationProvider>
           <AuthContextProvider>
-            {fontsLoaded ? <Routes /> : <ActivityIndicator />}
-            <Toast />
+            <BottomSheetProvider>
+              {fontsLoaded ? <Routes /> : <ActivityIndicator />}
+              <Toast />
+            </BottomSheetProvider>
           </AuthContextProvider>
         </LocationProvider>
       </QueryClientProvider>

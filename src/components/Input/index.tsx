@@ -4,6 +4,7 @@ import { StyleProp, TextInputProps } from "react-native";
 import * as S from "./styles";
 interface Props extends TextInputProps {
   Icon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
   control: any;
   name: string;
   isTextArea?: boolean;
@@ -20,6 +21,7 @@ export function Input({
   name,
   error,
   mask,
+  rightIcon,
   ...rest
 }: Props) {
   const [isFocused, setIsFocused] = useState(false);
@@ -60,6 +62,7 @@ export function Input({
                 {...rest}
               />
             )}
+            {rightIcon && <S.RightIconWrapper>{rightIcon}</S.RightIconWrapper>}
           </S.InputWrapper>
           {error && <S.Error>{error}</S.Error>}
         </S.Container>

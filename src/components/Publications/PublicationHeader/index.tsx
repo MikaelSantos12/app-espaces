@@ -14,6 +14,13 @@ interface Props {
     createdAt: Date;
     author: {
       name: string;
+      username: string;
+      userPhoto: [
+        {
+          id: string;
+          image: string;
+        }
+      ];
     };
     rating: number;
   };
@@ -29,15 +36,15 @@ export function PublicationHeader({ data, onPress }: Props) {
           <S.CompanyPhoto
             source={{
               uri:
-                data.company.photo ||
+                data?.company?.photo ||
                 "https://eshows-images.s3.amazonaws.com/16799212296421904deb7f016799212293x2rt.jpg",
             }}
           />
           <S.UserPhoto
             source={{
               uri:
-                data.userPhoto ||
-                "https://s3.us-east-2.amazonaws.com/epm-blue/eshows/T_ATRACOES/13263/638329663809770135_pexelswendywei2350325.jpg.jpg",
+                data.author.userPhoto[0]?.image ||
+                "https://avatars.githubusercontent.com/u/90217183?v=4",
             }}
           />
         </S.PhotoContainer>
@@ -46,7 +53,7 @@ export function PublicationHeader({ data, onPress }: Props) {
           {"\n"}
           em{" "}
           <S.Highlight onPress={() => navigation.navigate("company" as never)}>
-            {data.company.name}
+            {data.company?.name}
           </S.Highlight>
         </S.Title>
       </S.Header>

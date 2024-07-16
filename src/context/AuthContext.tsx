@@ -18,17 +18,19 @@ type User = {
   username?: string;
   token?: string;
   refresh_token?: string;
+
   firstLoginProps?: FirstLoginProps;
+  photo?: string;
 };
 export type AuthContextDataProps = {
-  user: any;
+  user: User;
 
   updateUser: (token: string, refreshToken: string) => void;
   setUser: (payload: User) => void;
   signOut: () => void;
 };
 type FirstLoginProps = {
-  access_token: string;
+  access_token?: string;
   refresh_token: string;
 };
 
@@ -45,18 +47,23 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
   const updateUser = (token: string, refreshToken: string) => {
     saveStorageToken({ token, refreshToken });
-    setUser({
+    setUser((prevUser) => ({
       token,
-    });
+    }));
   };
 
   async function loadUserData() {
     try {
       const { token, refreshToken } = await getStorageToken();
-      console.log("token", token);
-      if (token) {
+
+      if (token !== null) {
         api.feed.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        api.auth.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        const response = await api.auth.get("/me");
+        const userData = response.data;
+        console.log(userData);
         setUser({
+          ...userData,
           token,
         });
       }
