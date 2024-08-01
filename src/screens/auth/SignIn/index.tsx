@@ -42,7 +42,9 @@ export const SignIn = () => {
       transform: [{ rotateZ: `${rotation.value}deg` }],
     };
   });
-
+  // useEffect(() => {
+  //   setFirstLogin();
+  // }, []);
   return (
     <C.Container>
       <Header logoOnly />

@@ -52,3 +52,10 @@ export const Error = styled.Text`
   font-family: ${({ theme }) => theme.font.nunito_700};
   color: ${({ theme }) => theme.colors.danger};
 `;
+
+export const Label = styled.Text`
+  font-size: ${({ theme }) => theme.font_size.md};
+  font-family: ${({ theme }) => theme.font.nunito_700};
+  color: ${({ theme }) => theme.colors.main};
+  margin-bottom: 8px;
+`;

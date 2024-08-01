@@ -7,12 +7,14 @@ export const Container = styled.View`
   border-radius: 10px;
   gap: 8px;
   justify-content: space-between;
+  width: 100%;
 `;
 
 export const Info = styled.View`
   flex-direction: row;
   gap: 8px;
   align-items: center;
+  flex: 1;
 `;
 
 export const CompanyPhoto = styled.Image`
@@ -25,6 +27,7 @@ export const Title = styled.Text`
   font-size: ${({ theme }) => theme.font_size.lg};
   font-family: ${({ theme }) => theme.font.nunito_400};
   color: ${({ theme }) => theme.colors.main};
+  flex: 1;
 `;
 
 export const Actions = styled.View`
@@ -34,3 +37,8 @@ export const Actions = styled.View`
 `;
 
 export const Action = styled.TouchableOpacity``;
+export const TooltipText = styled.Text`
+  font-size: ${({ theme }) => theme.font_size.md};
+  font-family: ${({ theme }) => theme.font.inter_400};
+  color: ${({ theme }) => theme.colors.main};
+`;

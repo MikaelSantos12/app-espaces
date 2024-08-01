@@ -4,7 +4,7 @@ export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.background};
 `;
-export const Content = styled.ScrollView`
+export const Content = styled.View`
   padding: 16px;
 `;
 export const Title = styled.Text`
@@ -13,6 +13,7 @@ export const Title = styled.Text`
 
 export const SearchContainer = styled.View`
   flex-direction: row;
+
   justify-content: space-between;
   gap: 16px;
 `;

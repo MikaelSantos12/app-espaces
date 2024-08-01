@@ -3,13 +3,12 @@ import {
   removeStorageToken,
   saveStorageToken,
 } from "@/storage/storageAuth";
-import { CommonActions, useNavigation } from "@react-navigation/native";
 import axios, { AxiosError } from "axios";
 import { apiAuth } from "./api-auth";
 import { apiFeed } from "./api-feed";
+import { apiList } from "./api-list";
 
 const refreshToken = async () => {
-  const navigation = useNavigation();
   try {
     let { refreshToken } = await getStorageToken();
 
@@ -23,18 +22,18 @@ const refreshToken = async () => {
     return response.data.access_token;
   } catch (err) {
     await removeStorageToken();
-    navigation.dispatch(
-      CommonActions.navigate({
-        name: "signIn",
-        params: {},
-      })
-    );
+    // navigation.dispatch(
+    //   CommonActions.navigate({
+    //     name: "signIn",
+    //     params: {},
+    //   })
+    // );
   }
 };
 
 const handleAuthError = async (error: AxiosError) => {
   const originalRequest = error.config!;
-  const navigation = useNavigation();
+
   if (
     error.response?.data?.message?.statusCode === 401 &&
     (error.response.data.message.message == "token expired" ||
@@ -44,17 +43,12 @@ const handleAuthError = async (error: AxiosError) => {
     originalRequest.headers.Authorization = `Bearer ${newToken}`;
     return axios(originalRequest);
   }
-  await removeStorageToken();
-  navigation.dispatch(
-    CommonActions.navigate({
-      name: "signIn",
-      params: {},
-    })
-  );
+  // await removeStorageToken();
+
   return Promise.reject(error);
 };
 
-export const apis = [apiAuth, apiFeed];
+export const apis = [apiAuth, apiFeed, apiList];
 
 apis.forEach((api) => {
   api.interceptors.response.use((response) => response, handleAuthError);
@@ -72,4 +66,5 @@ apis.forEach((api) => {
 export const api = {
   auth: apiAuth,
   feed: apiFeed,
+  list: apiList,
 };

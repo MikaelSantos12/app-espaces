@@ -8,6 +8,7 @@ interface Props extends TouchableOpacityProps {
   color?: string;
   isLoading?: boolean;
   disabled?: boolean;
+  variant?: "default" | "outline";
 }
 
 export function Button({
@@ -17,6 +18,7 @@ export function Button({
   color,
   isLoading,
   disabled,
+  variant = "default",
   ...rest
 }: Props) {
   return (
@@ -25,8 +27,15 @@ export function Button({
       size={size}
       bgColor={bgColor}
       disabled={isLoading || disabled}
+      variant={variant}
     >
-      {isLoading ? <ActivityIndicator /> : <Title color={color}>{title}</Title>}
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <Title color={color} size={size} variant={variant}>
+          {title}
+        </Title>
+      )}
     </Container>
   );
 }

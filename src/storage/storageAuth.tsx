@@ -36,5 +36,5 @@ export async function isFirstLogin() {
 export async function removeStorageToken() {
   await AsyncStorage.removeItem(USER_TOKEN);
   await AsyncStorage.removeItem(USER_REFRESH_TOKEN);
-  await AsyncStorage.removeItem("isFirstLogin");
+  // await AsyncStorage.removeItem("isFirstLogin");
 }

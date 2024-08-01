@@ -52,7 +52,7 @@ export const BottomSheetProvider: React.FC<{ children: ReactNode }> = ({
               backdropComponent={renderBackdrop}
               ref={bottomSheetRef}
               index={1}
-              snapPoints={["60%", "80%"]}
+              snapPoints={["60%", "90%"]}
             >
               {component}
             </BottomSheetModal>

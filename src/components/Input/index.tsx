@@ -11,6 +11,7 @@ interface Props extends TextInputProps {
   style?: StyleProp<any>;
   error?: string;
   mask?: string;
+  label?: string;
 }
 
 export function Input({
@@ -20,6 +21,7 @@ export function Input({
   isTextArea,
   name,
   error,
+  label,
   mask,
   rightIcon,
   ...rest
@@ -31,6 +33,7 @@ export function Input({
       name={name}
       render={({ field: { onChange, value } }) => (
         <S.Container>
+          {label && <S.Label>{label}</S.Label>}
           <S.InputWrapper
             style={style}
             isTextArea={isTextArea}

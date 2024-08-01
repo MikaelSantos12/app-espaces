@@ -6,6 +6,8 @@ import { NewPublication } from "@/screens/NewPublication";
 import { Publication } from "@/screens/Publication";
 import { ShowsAndEvents } from "@/screens/ShowsAndEvents";
 
+import { CompanyInList } from "@/screens/CompanyInList";
+import { Tags } from "@/screens/Tags";
 import { createStackNavigator } from "@react-navigation/stack";
 import { TabStack } from "./app.routes";
 
@@ -19,9 +21,10 @@ type StackRoutes = {
   showsAndEvents: undefined;
   banner: undefined;
   signIn: undefined;
+  tags: { company: { ID: number } };
+  companyInList: { company: {} };
 };
 
-// Crie o navegador de stack
 const Stack = createStackNavigator<StackRoutes>();
 
 export function AppRoutes() {
@@ -35,6 +38,14 @@ export function AppRoutes() {
       <Stack.Screen name="company" component={Company} />
       <Stack.Screen name="showsAndEvents" component={ShowsAndEvents} />
       <Stack.Screen name="banner" component={Banner} />
+      <Stack.Screen name="companyInList" component={CompanyInList} />
+      <Stack.Screen
+        name="tags"
+        component={Tags}
+        options={{
+          presentation: "modal",
+        }}
+      />
     </Stack.Navigator>
   );
 }

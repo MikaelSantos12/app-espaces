@@ -1,18 +1,20 @@
 import styled from "styled-components/native";
 
 export const Container = styled.TouchableOpacity`
-  border-radius: 8px;
+  border-radius: 16px;
   padding: 12px;
   flex-direction: row;
   background-color: ${({ theme }) => theme.colors.card};
-
   gap: 16px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const CompanyImage = styled.Image`
   width: 80px;
   height: 80px;
   border-radius: 4px;
+  border-radius: 99px;
 `;
 
 export const TextWrapper = styled.View`

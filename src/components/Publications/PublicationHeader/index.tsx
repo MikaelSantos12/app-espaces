@@ -28,7 +28,7 @@ interface Props {
 }
 export function PublicationHeader({ data, onPress }: Props) {
   const navigation = useNavigation();
-
+  console.log(data.author.userPhoto.image);
   return (
     <>
       <S.Header activeOpacity={1} onPress={onPress}>
@@ -43,7 +43,7 @@ export function PublicationHeader({ data, onPress }: Props) {
           <S.UserPhoto
             source={{
               uri:
-                data.author.userPhoto[0]?.image ||
+                data.author.userPhoto?.image ||
                 "https://avatars.githubusercontent.com/u/90217183?v=4",
             }}
           />

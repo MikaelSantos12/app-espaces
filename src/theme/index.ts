@@ -2,7 +2,7 @@ export default {
   colors: {
     main: "#020422",
     background: "#FFF",
-    card: "#EBEBEB",
+    card: "#f3f4f6",
     secondary: "#D7DBFF",
     text: "#000000",
     buttons: "#D9D9D9",

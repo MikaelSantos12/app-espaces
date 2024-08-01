@@ -1,3 +1,4 @@
+import { ListCompanyImage } from "./ListCompanyImage";
 import { PublicationActions } from "./PublicationActions";
 import { PublicationDescription } from "./PublicationDescription";
 import { PublicationHeader } from "./PublicationHeader";
@@ -10,4 +11,5 @@ export const Publication = {
   Description: PublicationDescription,
   Image: PublicationImage,
   Actions: PublicationActions,
+  ListCompanyImage: ListCompanyImage,
 };

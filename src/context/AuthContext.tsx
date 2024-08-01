@@ -59,6 +59,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       if (token !== null) {
         api.feed.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         api.auth.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        api.list.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         const response = await api.auth.get("/me");
         const userData = response.data;
         console.log(userData);

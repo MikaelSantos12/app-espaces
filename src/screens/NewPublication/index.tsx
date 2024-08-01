@@ -4,7 +4,7 @@ import { Input } from "@/components/Input";
 import { api } from "@/services/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Slider } from "@miblanchard/react-native-slider";
-import { useNavigation } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as ImagePicker from "expo-image-picker";
 import { LinearGradient } from "expo-linear-gradient";
@@ -12,9 +12,11 @@ import { Tag } from "phosphor-react-native";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { KeyboardAvoidingView, Platform } from "react-native";
+import Toast from "react-native-toast-message";
 import { useTheme } from "styled-components/native";
 import { z } from "zod";
-import { CompanyCard } from "../CompanySelection/CompanyCard";
+
+import { CompanyCard } from "@/components/CompanyCard";
 import { Photos } from "./Photos";
 import {
   Container,
@@ -33,10 +35,14 @@ const publicationSchema = z.object({
   content: z.string(),
 });
 type PublicationSchema = z.infer<typeof publicationSchema>;
-
-export function NewPublication({ route }) {
-  const company = route?.params?.company;
-
+type NewPublicationRouteProp = RouteProp<
+  { params: { company: { ID: number }; selectedTags: string[] } },
+  "params"
+>;
+export function NewPublication({}) {
+  const route = useRoute<NewPublicationRouteProp>();
+  const company = route.params.company;
+  const [isLoading, setIsLoading] = useState<number | null>(null);
   const navigation = useNavigation();
 
   const [value, setValue] = useState(0);
@@ -44,27 +50,27 @@ export function NewPublication({ route }) {
 
   const [images, setImages] = useState(Array(6).fill(null));
 
-  const handlePress = async (index: number) => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+  const { mutate: mutatePhoto } = useMutation({
+    mutationFn: async (index: number) => {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
 
-    if (!result.canceled) {
-      const fileExtension = result.assets[0].uri.split(".").pop();
-      const file = {
-        uri: result.assets[0].uri,
-        name: result.assets[0].uri.split("/").pop(), // Extract file name
-        type: `${result.assets[0].type}/${fileExtension}`,
-      };
+      if (!result.canceled) {
+        const fileExtension = result.assets[0].uri.split(".").pop();
+        const file = {
+          uri: result.assets[0].uri,
+          name: result.assets[0].uri.split("/").pop(), // Extract file name
+          type: `${result.assets[0].type}/${fileExtension}`,
+        };
 
-      const formData = new FormData();
+        const formData = new FormData();
 
-      formData.append("file", file);
-
-      try {
+        formData.append("file", file);
+        setIsLoading(index);
         const { data } = await api.feed.post("/post/images", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -73,9 +79,14 @@ export function NewPublication({ route }) {
         const novasImagens = [...images];
         novasImagens[index] = data.url;
         setImages(novasImagens);
-      } catch (err) {}
-    }
-  };
+        return data;
+      }
+    },
+    onSuccess: () => {
+      setIsLoading(null);
+    },
+  });
+  const handlePress = async (index: number) => {};
   const queryClient = useQueryClient();
   const handleRemove = (index: number) => {
     const newImages = [...images];
@@ -85,8 +96,9 @@ export function NewPublication({ route }) {
   const { control, handleSubmit } = useForm<PublicationSchema>({
     resolver: zodResolver(publicationSchema),
   });
+  const tags = route?.params?.selectedTags;
 
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending: isPendingCreation } = useMutation({
     mutationFn: async (data: PublicationSchema) => {
       const postImages = images.filter((item) => item !== null);
 
@@ -95,9 +107,14 @@ export function NewPublication({ route }) {
         rating: value,
         postImages,
         companyId: company.ID,
+        postTags: tags,
       });
     },
     onSuccess: (res) => {
+      Toast.show({
+        type: "success",
+        text1: "Seu post esta sendo criado!",
+      });
       queryClient.invalidateQueries({
         queryKey: ["useFeed"],
       });
@@ -111,7 +128,10 @@ export function NewPublication({ route }) {
   const handleSendEmail = (data: PublicationSchema) => {
     mutate(data);
   };
-
+  const handleTags = () => {
+    navigation.navigate("tags", { ...route.params });
+  };
+  console.log();
   return (
     <Container>
       <Header title="Nova publicação" />
@@ -125,7 +145,7 @@ export function NewPublication({ route }) {
               <Tag color={theme.colors.main} weight="fill" />
               <Title>Adicionar a uma lista</Title>
             </TagButton>
-            <TagButton>
+            <TagButton onPress={handleTags}>
               <Tag color={theme.colors.main} weight="fill" />
               <Title>Etiquetas</Title>
             </TagButton>
@@ -176,7 +196,8 @@ export function NewPublication({ route }) {
           <PhotosWrapper horizontal contentContainerStyle={{ gap: 8 }}>
             {images.map((item, index) => (
               <Photos
-                handlePress={() => handlePress(index)}
+                isLoading={isLoading === index}
+                handlePress={() => mutatePhoto(index)}
                 url={item}
                 key={index}
               />
@@ -194,6 +215,7 @@ export function NewPublication({ route }) {
             size="full"
             style={{ marginTop: 12 }}
             onPress={handleSubmit(handleSendEmail)}
+            isLoading={isPendingCreation}
           />
         </KeyboardAvoidingView>
       </Content>

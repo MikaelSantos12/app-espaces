@@ -2,10 +2,10 @@ import Logo from "@/assets/LOGO.svg";
 
 import { useNavigation } from "@react-navigation/native";
 import { Bell, CaretLeft, UserPlus } from "phosphor-react-native";
+import React from "react";
 import { TouchableOpacity } from "react-native";
 import { useTheme } from "styled-components/native";
 import * as S from "./styles";
-import React from "react";
 
 interface Props {
   title?: string;
